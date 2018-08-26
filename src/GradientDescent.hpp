@@ -1,6 +1,8 @@
 #ifndef GRADIENT_DESCENT_HPP
 #define GRADIENT_DESCENT_HPP
 
+#include <limits>
+
 struct Point {
     Point(double x, double y)
     {
@@ -18,17 +20,21 @@ public:
 
     void setFunction(double (*func)(double, double));
     double setStartPosition(double x, double y);
+    void setConvergence(double);
+    bool isConvergence();
     Point step();
 
 private:
     double m_step;
     static constexpr double m_eps = 0.000001;
+    double m_converg = 0.000001;
     double (*m_func)(double, double);
     Point m_currentPosition = {0.0, 0.0};
+    Point m_prevPositon = {std::numeric_limits<double>::max(), std::numeric_limits<double>::max()};
 
     double m_derivativeX(Point);
     double m_derivativeY(Point);
     Point m_gradient(Point);
 };
 
-#endif GRADIENT_DESCENT_HPP
+#endif // GRADIENT_DESCENT_HPP
