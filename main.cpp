@@ -4,19 +4,21 @@
 
 #include "./src/GradientDescent.hpp"
 
-double function(double x, double y)
+double function(std::vector<double> args)
 {
-    return sin(x) * cos(y);
+    return sin(args[0]) * cos(args[1]);
 }
 
 int main()
 {
-    GradientDescent<double> grad(function, 0.0, 0.0);
+    GradientDescent<double> grad(function, {0.0, 0.0});
     std::cout << "Start position: " << std::fixed << std::setprecision(4)
-              << 0.0 << " " << 0.0 << " " << function(0.0, 0.0) << std::endl;
+              << 0.0 << " " << 0.0 << " " << function({0.0, 0.0}) << std::endl;
     while (!grad.isConvergence()) {
-        Point<double> position = grad.step();
-        std::cout << "Current position: " << std::fixed << std::setprecision(4)
-                  << position.x << " " << position.y << " " << function(position.x, position.y) << std::endl;
+        std::vector<double> position = grad.step();
+        std::cout << "Current position: ";
+        for (double k : position)
+            std::cout << std::fixed << std::setprecision(4) << k << " ";
+        std:: cout << function(position) << std::endl;
     }
 }
