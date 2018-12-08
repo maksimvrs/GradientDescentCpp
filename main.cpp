@@ -11,11 +11,11 @@ double function(double x, double y)
 
 int main()
 {
-    GradientDescent grad(function, 0.0, 0.0);
+    GradientDescent<double> grad(function, 0.0, 0.0);
     std::cout << "Start position: " << std::fixed << std::setprecision(4)
               << 0.0 << " " << 0.0 << " " << function(0.0, 0.0) << std::endl;
     while (!grad.isConvergence()) {
-        Point position = grad.step();
+        Point<double> position = grad.step();
         std::cout << "Current position: " << std::fixed << std::setprecision(4)
                   << position.x << " " << position.y << " " << function(position.x, position.y) << std::endl;
     }
